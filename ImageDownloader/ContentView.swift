@@ -9,8 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        RemoteImage(sources: [
+            URLRequest(url: URL(string: "https://1000logos.net/wp-content/uploads/2016/10/Apple-Logo-1536x864.jpg")!),
+            URLRequest(url: URL(string: "https://1000logos.net/wp-content/uploads/2016/10/Apple-Logo-1977-1536x864.png")!),
+            URLRequest(url: URL(string: "https://1000logos.net/wp-content/uploads/2016/10/Apple-Logo-1976.png")!),
+        ])
     }
 }
 
