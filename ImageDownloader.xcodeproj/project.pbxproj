@@ -11,6 +11,7 @@
 		583D05942859298D0048D60B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583D05932859298D0048D60B /* ContentView.swift */; };
 		583D05962859298D0048D60B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 583D05952859298D0048D60B /* Assets.xcassets */; };
 		583D05992859298D0048D60B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 583D05982859298D0048D60B /* Preview Assets.xcassets */; };
+		58922670285B86A200D85BDE /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5892266F285B86A200D85BDE /* URLHelper.swift */; };
 		58DD4035285A169800F70455 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DD4034285A169800F70455 /* ImageLoader.swift */; };
 		58DD4037285A274900F70455 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DD4036285A274900F70455 /* RemoteImage.swift */; };
 /* End PBXBuildFile section */
@@ -21,6 +22,7 @@
 		583D05932859298D0048D60B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		583D05952859298D0048D60B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		583D05982859298D0048D60B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5892266F285B86A200D85BDE /* URLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHelper.swift; sourceTree = "<group>"; };
 		58DD4034285A169800F70455 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		58DD4036285A274900F70455 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,6 +63,7 @@
 				583D05952859298D0048D60B /* Assets.xcassets */,
 				583D05972859298D0048D60B /* Preview Content */,
 				58DD4034285A169800F70455 /* ImageLoader.swift */,
+				5892266F285B86A200D85BDE /* URLHelper.swift */,
 			);
 			path = ImageDownloader;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58922670285B86A200D85BDE /* URLHelper.swift in Sources */,
 				583D05942859298D0048D60B /* ContentView.swift in Sources */,
 				583D05922859298D0048D60B /* ImageDownloaderApp.swift in Sources */,
 				58DD4035285A169800F70455 /* ImageLoader.swift in Sources */,

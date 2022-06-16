@@ -9,12 +9,15 @@ import SwiftUI
 
 struct RemoteImage: View {
 //    private let source: URLRequest
-    private let sources: [URLRequest]
+//    @Binding var source: URLRequest
+    
+    private var sources: [URLRequest]
     @State private var image: UIImage?
     
     @Environment(\.imageLoader) private var imageLoader
     
     init(source: URL) {
+        print(source)
         self.init(sources: [URLRequest(url: source)])
     }
     
@@ -30,6 +33,9 @@ struct RemoteImage: View {
         Group {
             if let image = image {
                 Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             } else {
                 Rectangle()
                     .background(Color.red)
@@ -40,6 +46,9 @@ struct RemoteImage: View {
             await loadImages(at: sources)
         }
     }
+    
+    
+//    source  ->>>> try fetch the image -->>> display UI
     
     func loadImage(at source: URLRequest) async {
         do {
