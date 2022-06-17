@@ -8,25 +8,18 @@
 import SwiftUI
 
 struct RemoteImage: View {
-//    private let source: URLRequest
-//    @Binding var source: URLRequest
-    
-    private var sources: [URLRequest]
+    private let source: URLRequest
+
     @State private var image: UIImage?
     
     @Environment(\.imageLoader) private var imageLoader
     
     init(source: URL) {
-        print(source)
-        self.init(sources: [URLRequest(url: source)])
+        self.init(source: URLRequest(url: source))
     }
     
-//    init(source: URLRequest) {
-//        self.source = source
-//    }
-    
-    init(sources: [URLRequest]) {
-        self.sources = sources
+    init(source: URLRequest) {
+        self.source = source
     }
     
     var body: some View {
@@ -41,34 +34,33 @@ struct RemoteImage: View {
                     .background(Color.red)
             }
         }
-        .task {
-//            await loadImage(at source)
-            await loadImages(at: sources)
+        .onAppear() {
+            loadImageTask(for: source)
+        }
+        .onChange(of: source) { newValue in
+            loadImageTask(for: newValue)
+        }
+    
+    }
+//    source  ->>>> try fetch the image -->>> display UI
+    
+    func loadImageTask(for request: URLRequest) {
+        Task {
+            print("loadImageTask: \(request)")
+            await loadImage(at: request)
         }
     }
     
-    
-//    source  ->>>> try fetch the image -->>> display UI
-    
     func loadImage(at source: URLRequest) async {
         do {
-            image = try await imageLoader.fetch(source)
+            if let image = try await imageLoader.fetch(source) {
+                self.image = image
+            }
         } catch {
             print(error.localizedDescription)
         }
     }
     
-    func loadImages(at sources: [URLRequest]) async {
-        for source in sources {
-            Task {
-                do {
-                    image = try await imageLoader.fetch(source)
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
 }
 
 struct RemoteImage_Previews: PreviewProvider {

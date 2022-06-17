@@ -11,18 +11,18 @@ import SwiftUI
 
 actor ImageLoader {
     private enum LoaderStatus {
-        case inProgress(Task<UIImage, Error>)
-        case fetched(UIImage)
+        case inProgress(Task<UIImage?, Error>)
+        case fetched(UIImage?)
     }
     
     private var images: [URLRequest: LoaderStatus] = [:]
     
-    public func fetch(_ url: URL) async throws -> UIImage {
+    public func fetch(_ url: URL) async throws -> UIImage? {
         let request = URLRequest(url :url)
         return try await fetch(request)
     }
     
-    public func fetch(_ request: URLRequest) async throws -> UIImage {
+    public func fetch(_ request: URLRequest) async throws -> UIImage? {
         
         // Status Checking <--------- avoid Reentrancy Problem
         if let status = images[request] {
@@ -42,12 +42,25 @@ actor ImageLoader {
         }
         
         // Image Retrieving from Network (Online)
-        let task: Task<UIImage, Error> = Task {
+        let task: Task<UIImage?, Error> = Task {
             print("Fetch from Online : \(request.url?.path ?? "")")
-            let (imageData, _) = try await URLSession.shared.data(for: request)
-            let image = UIImage(data: imageData)!
-            try self.persistImage(image, for: request)
-            return image
+            do {
+                let (imageData, response) = try await URLSession.shared.data(for: request)
+                
+                if let httpResponse = response as? HTTPURLResponse,
+                   httpResponse.statusCode != 200 {
+                    // return nil to keep displaying the current one
+                    return nil
+                }
+                
+                if let image = UIImage(data: imageData) {
+                    try self.persistImage(image, for: request)
+                    return image
+                }
+            } catch {
+                print("Error: \(error.localizedDescription)")
+            }
+            return nil
         }
         
         images[request] = .inProgress(task)
